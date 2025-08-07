@@ -1,0 +1,6 @@
+name = "brawlstreetbets"
+main = "index.js"
+compatibility_date = "2025-02-04"
+
+[observability.logs]
+enabled = true
