@@ -244,18 +244,20 @@ const html = `<!DOCTYPE html>
             position: absolute;
             top: 60px;
             width: 180px;
-            height: 40px;
-            background: url('https://www.smashbros.com/assets_v2/img/fighter/pikachu/lightning.png') no-repeat left center/contain;
+            height: 60px;
+            background: none;
             opacity: 0;
             z-index: 10;
         }
         .pikachu-left .thunder-bolt {
             left: 120px;
             transform: none;
+            background: url('https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif') no-repeat left center/contain;
         }
         .pikachu-right .thunder-bolt {
             right: 120px;
             transform: scaleX(-1);
+            background: url('https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif') no-repeat right center/contain;
         }
         @keyframes thunderShoot {
             0%, 80%, 100% { opacity: 0; }
