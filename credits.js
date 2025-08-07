@@ -8,7 +8,7 @@ export const html = `<!DOCTYPE html>
         /* Normal Mode Styles */
         :root {
             --bg-color: #1b1b1b;
-            --text-color: #ffffff;
+            --text-color: #383535ff;
             --accent-color: #ffa31a;
             --container-bg: #f8fbff;
             --font-family: 'Segoe UI', Arial, sans-serif;

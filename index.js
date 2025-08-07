@@ -8,7 +8,7 @@ const html = `<!DOCTYPE html>
         /* Normal Mode Styles */
         :root {
             --bg-color: #1b1b1b;
-            --text-color: #ffffff;
+            --text-color: #383535ff;
             --accent-color: #ffa31a;
             --container-bg: #f8fbff;
             --font-family: 'Segoe UI', Arial, sans-serif;
@@ -198,6 +198,66 @@ const html = `<!DOCTYPE html>
             transform: translateY(0);
         }
 
+        /* Pikachu Battle Animation */
+        @keyframes thunderEffect {
+            0%, 100% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes pikachuBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .pikachu-battle {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .pikachu-left {
+            left: 20px;
+        }
+
+        .pikachu-right {
+            right: 20px;
+            transform: translateY(-50%) scaleX(-1);
+        }
+
+        .thunder-bolt {
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            height: 40px;
+            background: url('https://www.smashbros.com/assets_v2/img/fighter/pikachu/lightning.png') no-repeat center/contain;
+            opacity: 0;
+        }
+
+        .thunder-left {
+            right: -100px;
+        }
+
+        .thunder-right {
+            left: -100px;
+        }
+
+        body.party-mode .pikachu-battle {
+            opacity: 1;
+        }
+
+        body.party-mode .pikachu-battle img {
+            animation: pikachuBounce 1s infinite;
+        }
+
+        body.party-mode .thunder-bolt {
+            animation: thunderEffect 2s infinite;
+        }
+
         /* Mode Toggle Button */
         #mode-toggle {
             position: fixed;
@@ -270,6 +330,14 @@ const html = `<!DOCTYPE html>
 </head>
 <body>
     <button id="mode-toggle">Toggle Party Mode</button>
+    <div class="pikachu-battle pikachu-left">
+        <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Left">
+        <div class="thunder-bolt thunder-right"></div>
+    </div>
+    <div class="pikachu-battle pikachu-right">
+        <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Right">
+        <div class="thunder-bolt thunder-left"></div>
+    </div>
     <div class="container">
         <h1>Welcome to BrawlStreetBets</h1>
         <p><strong>BrawlStreetBets</strong> is your hub for all things Super Smash Bros.!<br>
