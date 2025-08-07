@@ -200,29 +200,39 @@ const html = `<!DOCTYPE html>
 
         /* Hadouken Battle Animation */
         .hadouken-battle {
-            position: fixed;
+            position: absolute;
             top: 50%;
-            left: 0;
-            width: 100vw;
-            height: 300px;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 220px;
             display: flex;
             align-items: center;
-            justify-content: center;
             pointer-events: none;
             opacity: 0;
             z-index: 10;
             transition: opacity 0.3s;
         }
+        .hadouken-left {
+            left: 0;
+            justify-content: flex-start;
+        }
+        .hadouken-right {
+            right: 0;
+            justify-content: flex-end;
+            transform: translateY(-50%) scaleX(-1);
+        }
         .hadouken-gif {
-            width: 80vw;
-            max-width: 1200px;
-            min-width: 400px;
+            width: 200px;
             height: 220px;
             object-fit: cover;
             filter: drop-shadow(0 0 40px #fff) drop-shadow(0 0 80px #ffa31a);
         }
         body.party-mode .hadouken-battle {
             opacity: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 20;
         }
 
         /* Mode Toggle Button */
@@ -297,8 +307,11 @@ const html = `<!DOCTYPE html>
 </head>
 <body>
     <button id="mode-toggle">Toggle Party Mode</button>
-    <div class="hadouken-battle">
-        <img class="hadouken-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanhmbThyazVlZG11OHhnc2U5dXNrcmN5MnFtcTZmZGlrN3VrbW84YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/px6X1e8dWxdsc/giphy.gif" alt="Hadouken Battle">
+    <div class="hadouken-battle hadouken-left">
+        <img class="hadouken-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanhmbThyazVlZG11OHhnc2U5dXNrcmN5MnFtcTZmZGlrN3VrbW84YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/px6X1e8dWxdsc/giphy.gif" alt="Hadouken Left">
+    </div>
+    <div class="hadouken-battle hadouken-right">
+        <img class="hadouken-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanhmbThyazVlZG11OHhnc2U5dXNrcmN5MnFtcTZmZGlrN3VrbW84YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/px6X1e8dWxdsc/giphy.gif" alt="Hadouken Right">
     </div>
     <div class="container">
         <h1>Welcome to BrawlStreetBets</h1>
