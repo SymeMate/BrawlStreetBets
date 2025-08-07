@@ -21,8 +21,9 @@ const html = `<!DOCTYPE html>
 </html>`;
 
 export default {
-    async fetch(request) {
-        return new Response(html, {
+    async fetch() {
+        console.log('help me');
+        return new Response(null, {
             status: 200,
             headers: {
                 'Content-Type': 'text/html; charset=UTF-8',
