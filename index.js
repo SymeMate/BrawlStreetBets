@@ -198,80 +198,31 @@ const html = `<!DOCTYPE html>
             transform: translateY(0);
         }
 
-        /* Pikachu Battle Animation */
-        @keyframes thunderEffect {
-            0%, 100% { opacity: 0; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        @keyframes pikachuBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-
-        .pikachu-battle {
+        /* Hadouken Battle Animation */
+        .hadouken-battle {
             position: fixed;
             top: 50%;
-            width: 180px;
-            height: 180px;
+            left: 0;
+            width: 100vw;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             pointer-events: none;
             opacity: 0;
             z-index: 10;
             transition: opacity 0.3s;
         }
-        .pikachu-left {
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
+        .hadouken-gif {
+            width: 80vw;
+            max-width: 1200px;
+            min-width: 400px;
+            height: 220px;
+            object-fit: cover;
+            filter: drop-shadow(0 0 40px #fff) drop-shadow(0 0 80px #ffa31a);
         }
-        .pikachu-right {
-            right: 0;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
-        .pikachu-img {
-            width: 140px;
-            height: 140px;
-            z-index: 11;
-        }
-        .pikachu-right .pikachu-img {
-            transform: scaleX(-1);
-        }
-        .thunder-bolt {
-            position: absolute;
-            top: 60px;
-            width: 180px;
-            height: 60px;
-            background: none;
-            opacity: 0;
-            z-index: 10;
-        }
-        .pikachu-left .thunder-bolt {
-            left: 120px;
-            transform: none;
-            background: url('https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif') no-repeat left center/contain;
-        }
-        .pikachu-right .thunder-bolt {
-            right: 120px;
-            transform: scaleX(-1);
-            background: url('https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif') no-repeat right center/contain;
-        }
-        @keyframes thunderShoot {
-            0%, 80%, 100% { opacity: 0; }
-            10%, 70% { opacity: 1; }
-        }
-        body.party-mode .pikachu-battle {
+        body.party-mode .hadouken-battle {
             opacity: 1;
-        }
-        body.party-mode .pikachu-img {
-            animation: pikachuBounce 1s infinite;
-        }
-        body.party-mode .pikachu-left .thunder-bolt,
-        body.party-mode .pikachu-right .thunder-bolt {
-            animation: thunderShoot 2s infinite;
         }
 
         /* Mode Toggle Button */
@@ -346,13 +297,8 @@ const html = `<!DOCTYPE html>
 </head>
 <body>
     <button id="mode-toggle">Toggle Party Mode</button>
-    <div class="pikachu-battle pikachu-left">
-        <img class="pikachu-img" src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Left">
-        <div class="thunder-bolt"></div>
-    </div>
-    <div class="pikachu-battle pikachu-right">
-        <img class="pikachu-img" src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Right">
-        <div class="thunder-bolt"></div>
+    <div class="hadouken-battle">
+        <img class="hadouken-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanhmbThyazVlZG11OHhnc2U5dXNrcmN5MnFtcTZmZGlrN3VrbW84YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/px6X1e8dWxdsc/giphy.gif" alt="Hadouken Battle">
     </div>
     <div class="container">
         <h1>Welcome to BrawlStreetBets</h1>
