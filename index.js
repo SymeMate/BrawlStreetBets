@@ -252,10 +252,22 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`;
 
+// Import the credits page HTML
+import creditsPage from './credits.js';
+
 export default {
-    async fetch() {
-        console.log('help me');
-        return new Response(html, {
+    async fetch(request) {
+        const url = new URL(request.url);
+        const path = url.pathname;
+
+        let responseHtml = html; // Default to main page
+
+        // Basic routing
+        if (path === '/credits') {
+            responseHtml = creditsPage.html;
+        }
+
+        return new Response(responseHtml, {
             status: 200,
             headers: {
                 'Content-Type': 'text/html; charset=UTF-8',

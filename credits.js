@@ -1,4 +1,4 @@
-const html = `<!DOCTYPE html>
+export const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -266,16 +266,4 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`;
 
-export default {
-    async fetch() {
-        return new Response(html, {
-            status: 200,
-            headers: {
-                'Content-Type': 'text/html; charset=UTF-8',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST',
-                'Access-Control-Allow-Headers': '*'
-            }
-        });
-    }
-}
+export default { html };
