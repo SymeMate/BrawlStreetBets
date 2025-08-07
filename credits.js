@@ -3,7 +3,7 @@ const html = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrawlStreetBets</title>
+    <title>BrawlStreetBets - Credits</title>
     <style>
         /* Normal Mode Styles */
         :root {
@@ -55,21 +55,19 @@ const html = `<!DOCTYPE html>
             padding: 2.5rem 3.5rem;
             border-radius: 18px;
             box-shadow: 0 4px 32px #000a;
-            text-align: center;
         }
 
         body:not(.party-mode) h1 {
             color: var(--accent-color);
             font-size: 2.8rem;
+            text-align: center;
         }
 
         body:not(.party-mode) h2 {
             color: var(--accent-color);
-        }
-
-        body:not(.party-mode) p {
-            color: #b0b8c1;
-            font-size: 1.2rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 30px;
         }
 
         /* Party Mode */
@@ -89,11 +87,10 @@ const html = `<!DOCTYPE html>
             border: 5px solid #ff00ff;
             border-style: double;
             box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ff00, 0 0 60px #0000ff;
-            text-align: center;
-            animation: shake 0.5s infinite;
         }
 
         body.party-mode h1 {
+            text-align: center;
             color: #fff;
             font-size: 3.5rem;
             text-shadow: 2px 2px #ff0000, -2px -2px #00ff00, 4px 4px #0000ff;
@@ -104,88 +101,54 @@ const html = `<!DOCTYPE html>
             color: #fff;
             animation: rainbow 2s infinite;
             text-shadow: 2px 2px #000;
+            border-bottom: 3px solid #ff00ff;
+            padding-bottom: 10px;
         }
 
-        body.party-mode p {
-            color: #fff;
-            font-size: 1.4rem;
-            animation: blink 0.5s infinite;
-            text-shadow: 1px 1px #ff00ff;
-        }
-
-        /* Common Gallery Styles */
-        .smash-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 2em;
-        }
-
-        .smash-gallery img {
-            border-radius: 10px;
-            width: 180px;
-            height: 120px;
-            object-fit: cover;
+        /* Credit Items */
+        .credit-item {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
             transition: all 0.3s;
         }
 
-        /* Gallery Party Mode */
-        body.party-mode .smash-gallery img {
-            border: 3px solid #ff00ff;
-            animation: shake 0.3s infinite;
+        body:not(.party-mode) .credit-item {
+            background: rgba(255,255,255,0.05);
         }
 
-        body.party-mode .smash-gallery img:hover {
-            transform: scale(1.2) rotate(10deg);
-            box-shadow: 0 0 30px #ff00ff;
+        body.party-mode .credit-item {
+            background: rgba(255,0,255,0.1);
+            animation: blink 2s infinite;
+            border: 2px solid #ff00ff;
         }
 
-        /* Gallery Normal Mode */
-        body:not(.party-mode) .smash-gallery img {
-            border: 2px solid #444;
-            background: #111;
-            box-shadow: 0 2px 12px #0006;
+        .credit-item h3 {
+            margin: 0 0 10px 0;
         }
 
-        body:not(.party-mode) .smash-gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px #000a;
-        }
-
-        /* Mode Toggle Button */
-        #mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-family: var(--font-family);
-            font-weight: bold;
-            transition: all 0.3s;
-            z-index: 1000;
-        }
-
-        body:not(.party-mode) #mode-toggle {
-            background: var(--accent-color);
-            color: #000;
-            border: none;
-            box-shadow: 0 2px 10px #0004;
-        }
-
-        body.party-mode #mode-toggle {
-            background: #ff00ff;
-            color: #fff;
-            border: 3px solid #00ff00;
+        body.party-mode .credit-item h3 {
             animation: rainbow 3s infinite;
-            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        .credit-value {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        body:not(.party-mode) .credit-value {
+            color: var(--accent-color);
+        }
+
+        body.party-mode .credit-value {
+            animation: rainbow 1s infinite;
         }
 
         /* Navigation Button Styles */
         .nav-button {
+            display: block;
             padding: 12px 24px;
-            margin: 20px 0;
+            margin: 20px auto;
             font-size: 1.1rem;
             border-radius: 8px;
             cursor: pointer;
@@ -217,28 +180,79 @@ const html = `<!DOCTYPE html>
             transform: scale(1.1);
         }
 
+        /* Mode Toggle Button */
+        #mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        body:not(.party-mode) #mode-toggle {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            box-shadow: 0 2px 10px #0004;
+        }
+
+        body.party-mode #mode-toggle {
+            background: #ff00ff;
+            color: #fff;
+            border: 3px solid #00ff00;
+            animation: rainbow 3s infinite;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
         @media (max-width: 800px) {
             .container { padding: 1rem; }
-            .smash-gallery img { width: 120px; height: 80px; }
         }
     </style>
 </head>
 <body>
     <button id="mode-toggle">Toggle Party Mode</button>
     <div class="container">
-        <h1>Welcome to BrawlStreetBets</h1>
-        <p><strong>BrawlStreetBets</strong> is your hub for all things Super Smash Bros.!<br>
-        Join the community, discuss strategies, compete in tournaments, and celebrate your favorite fighters.<br>
-        Whether you're a seasoned pro or a newcomer, there's a place for you here!</p>
-        <button onclick="window.location.href='/credits'" class="nav-button">View Credits</button>
-        <h2>Super Smash Bros. Gallery</h2>
-        <div class="smash-gallery">
-            <img src="https://www.smashbros.com/assets_v2/img/top/hero01.jpg" alt="Super Smash Bros. Ultimate" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/kirby/main.png" alt="Kirby" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/mario/main.png" alt="Mario" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/link/main.png" alt="Link" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu" />
+        <h1>Your Credits</h1>
+        
+        <h2>Battle Points</h2>
+        <div class="credit-item">
+            <h3>Current Battle Points</h3>
+            <div class="credit-value">🏆 15,750 BP</div>
+            <p>Earned from tournament victories and daily challenges</p>
         </div>
+
+        <h2>Tournament Achievements</h2>
+        <div class="credit-item">
+            <h3>Tournaments Won</h3>
+            <div class="credit-value">🏅 23</div>
+            <p>First place finishes in community tournaments</p>
+        </div>
+        
+        <div class="credit-item">
+            <h3>Total Prize Money</h3>
+            <div class="credit-value">💰 $2,450</div>
+            <p>Accumulated winnings from competitive play</p>
+        </div>
+
+        <h2>Character Stats</h2>
+        <div class="credit-item">
+            <h3>Main Fighter</h3>
+            <div class="credit-value">⚔️ Mario</div>
+            <p>Win Rate: 68%</p>
+        </div>
+        
+        <div class="credit-item">
+            <h3>Total Matches</h3>
+            <div class="credit-value">🎮 1,337</div>
+            <p>Played across all game modes</p>
+        </div>
+
+        <button onclick="window.location.href='/'" class="nav-button">Back to Home</button>
     </div>
     <script>
         const toggleButton = document.getElementById('mode-toggle');
@@ -254,7 +268,6 @@ const html = `<!DOCTYPE html>
 
 export default {
     async fetch() {
-        console.log('help me');
         return new Response(html, {
             status: 200,
             headers: {
