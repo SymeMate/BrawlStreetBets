@@ -7,10 +7,10 @@ const html = `<!DOCTYPE html>
     <style>
         /* Normal Mode Styles */
         :root {
-            --bg-color: #181a20;
-            --text-color: #fff;
-            --accent-color: #ffb300;
-            --container-bg: #23272f;
+            --bg-color: #1b1b1b;
+            --text-color: #ffffff;
+            --accent-color: #ffa31a;
+            --container-bg: #f8fbff;
             --font-family: 'Segoe UI', Arial, sans-serif;
         }
 
@@ -131,26 +131,71 @@ const html = `<!DOCTYPE html>
         }
 
         /* Gallery Party Mode */
-        body.party-mode .smash-gallery img {
+        body.party-mode .character-card {
             border: 3px solid #ff00ff;
             animation: shake 0.3s infinite;
         }
 
-        body.party-mode .smash-gallery img:hover {
-            transform: scale(1.2) rotate(10deg);
+        body.party-mode .character-card:hover {
+            transform: scale(1.1) rotate(5deg);
             box-shadow: 0 0 30px #ff00ff;
         }
 
+        body.party-mode .character-card:hover .character-info {
+            transform: translateY(0);
+            animation: rainbow 2s infinite;
+        }
+
+        body.party-mode .character-info h3 {
+            text-shadow: 2px 2px #ff0000;
+        }
+
+        /* Character Cards */
+        .character-card {
+            position: relative;
+            text-decoration: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .character-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.8);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .character-info h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: var(--accent-color);
+        }
+
+        .character-info p {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
         /* Gallery Normal Mode */
-        body:not(.party-mode) .smash-gallery img {
+        body:not(.party-mode) .character-card {
             border: 2px solid #444;
             background: #111;
             box-shadow: 0 2px 12px #0006;
         }
 
-        body:not(.party-mode) .smash-gallery img:hover {
-            transform: scale(1.05);
+        body:not(.party-mode) .character-card:hover {
+            transform: translateY(-5px);
             box-shadow: 0 4px 20px #000a;
+        }
+
+        body:not(.party-mode) .character-card:hover .character-info {
+            transform: translateY(0);
         }
 
         /* Mode Toggle Button */
@@ -233,11 +278,48 @@ const html = `<!DOCTYPE html>
         <button onclick="window.location.href='/credits'" class="nav-button">View Credits</button>
         <h2>Super Smash Bros. Gallery</h2>
         <div class="smash-gallery">
-            <img src="https://www.smashbros.com/assets_v2/img/top/hero01.jpg" alt="Super Smash Bros. Ultimate" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/kirby/main.png" alt="Kirby" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/mario/main.png" alt="Mario" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/link/main.png" alt="Link" />
-            <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu" />
+            <a href="/character/mario" class="character-card">
+                <img src="https://www.smashbros.com/assets_v2/img/fighter/mario/main.png" alt="Mario" />
+                <div class="character-info">
+                    <h3>Mario</h3>
+                    <p>All-around fighter</p>
+                </div>
+            </a>
+            <a href="/character/link" class="character-card">
+                <img src="https://www.smashbros.com/assets_v2/img/fighter/link/main.png" alt="Link" />
+                <div class="character-info">
+                    <h3>Link</h3>
+                    <p>Tactical warrior</p>
+                </div>
+            </a>
+            <a href="/character/pikachu" class="character-card">
+                <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu" />
+                <div class="character-info">
+                    <h3>Pikachu</h3>
+                    <p>Speed demon</p>
+                </div>
+            </a>
+            <a href="/character/samus" class="character-card">
+                <img src="https://www.smashbros.com/assets_v2/img/fighter/samus/main.png" alt="Samus" />
+                <div class="character-info">
+                    <h3>Samus</h3>
+                    <p>Ranged specialist</p>
+                </div>
+            </a>
+            <a href="/character/fox" class="character-card">
+                <img src="https://www.smashbros.com/assets_v2/img/fighter/fox/main.png" alt="Fox" />
+                <div class="character-info">
+                    <h3>Fox</h3>
+                    <p>Technical master</p>
+                </div>
+            </a>
+            <a href="/character/captain-falcon" class="character-card">
+                <img src="https://www.smashbros.com/assets_v2/img/fighter/captain_falcon/main.png" alt="Captain Falcon" />
+                <div class="character-info">
+                    <h3>Captain Falcon</h3>
+                    <p>Combo king</p>
+                </div>
+            </a>
         </div>
     </div>
     <script>
@@ -252,8 +334,10 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`;
 
-// Import the credits page HTML
+// Import pages and data
 import creditsPage from './credits.js';
+import { characterTemplate } from './characterTemplate.js';
+import characters from './characters.js';
 
 export default {
     async fetch(request) {
@@ -265,6 +349,21 @@ export default {
         // Basic routing
         if (path === '/credits') {
             responseHtml = creditsPage.html;
+        } else if (path.startsWith('/character/')) {
+            const characterId = path.split('/')[2];
+            const character = characters[characterId];
+            
+            if (character) {
+                responseHtml = characterTemplate(character);
+            } else {
+                responseHtml = `<!DOCTYPE html>
+                    <html>
+                        <body>
+                            <h1>Character not found</h1>
+                            <a href="/">Back to home</a>
+                        </body>
+                    </html>`;
+            }
         }
 
         return new Response(responseHtml, {

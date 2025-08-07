@@ -7,10 +7,10 @@ export const html = `<!DOCTYPE html>
     <style>
         /* Normal Mode Styles */
         :root {
-            --bg-color: #181a20;
-            --text-color: #fff;
-            --accent-color: #ffb300;
-            --container-bg: #23272f;
+            --bg-color: #1b1b1b;
+            --text-color: #ffffff;
+            --accent-color: #ffa31a;
+            --container-bg: #f8fbff;
             --font-family: 'Segoe UI', Arial, sans-serif;
         }
 
