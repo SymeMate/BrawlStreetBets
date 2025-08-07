@@ -23,7 +23,7 @@ const html = `<!DOCTYPE html>
 export default {
     async fetch() {
         console.log('help me');
-        return new Response(null, {
+        return new Response(html, {
             status: 200,
             headers: {
                 'Content-Type': 'text/html; charset=UTF-8',
