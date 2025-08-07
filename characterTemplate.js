@@ -7,9 +7,9 @@ export const characterTemplate = (character) => `<!DOCTYPE html>
     <style>
         :root {
             --bg-color: #1b1b1b;
-            --text-color: #383535ff;
+            --text-color: #ffffff;
             --accent-color: #ffa31a;
-            --container-bg: #f8fbff;
+            --container-bg: #2a2a2f;
             --font-family: 'Segoe UI', Arial, sans-serif;
         }
 

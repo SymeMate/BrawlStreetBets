@@ -8,9 +8,9 @@ const html = `<!DOCTYPE html>
         /* Normal Mode Styles */
         :root {
             --bg-color: #1b1b1b;
-            --text-color: #383535ff;
+            --text-color: #ffffff;
             --accent-color: #ffa31a;
-            --container-bg: #f8fbff;
+            --container-bg: #2a2a2f;
             --font-family: 'Segoe UI', Arial, sans-serif;
         }
 
@@ -209,53 +209,67 @@ const html = `<!DOCTYPE html>
             50% { transform: translateY(-20px); }
         }
 
+
         .pikachu-battle {
             position: fixed;
             top: 50%;
-            transform: translateY(-50%);
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             pointer-events: none;
             opacity: 0;
+            z-index: 10;
             transition: opacity 0.3s;
         }
-
         .pikachu-left {
-            left: 20px;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
         }
-
         .pikachu-right {
-            right: 20px;
-            transform: translateY(-50%) scaleX(-1);
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
-
+        .pikachu-img {
+            width: 140px;
+            height: 140px;
+            z-index: 11;
+        }
+        .pikachu-right .pikachu-img {
+            transform: scaleX(-1);
+        }
         .thunder-bolt {
             position: absolute;
-            top: 50%;
-            width: 100px;
+            top: 60px;
+            width: 180px;
             height: 40px;
-            background: url('https://www.smashbros.com/assets_v2/img/fighter/pikachu/lightning.png') no-repeat center/contain;
+            background: url('https://www.smashbros.com/assets_v2/img/fighter/pikachu/lightning.png') no-repeat left center/contain;
             opacity: 0;
+            z-index: 10;
         }
-
-        .thunder-left {
-            right: -100px;
+        .pikachu-left .thunder-bolt {
+            left: 120px;
+            transform: none;
         }
-
-        .thunder-right {
-            left: -100px;
+        .pikachu-right .thunder-bolt {
+            right: 120px;
+            transform: scaleX(-1);
         }
-
+        @keyframes thunderShoot {
+            0%, 80%, 100% { opacity: 0; }
+            10%, 70% { opacity: 1; }
+        }
         body.party-mode .pikachu-battle {
             opacity: 1;
         }
-
-        body.party-mode .pikachu-battle img {
+        body.party-mode .pikachu-img {
             animation: pikachuBounce 1s infinite;
         }
-
-        body.party-mode .thunder-bolt {
-            animation: thunderEffect 2s infinite;
+        body.party-mode .pikachu-left .thunder-bolt,
+        body.party-mode .pikachu-right .thunder-bolt {
+            animation: thunderShoot 2s infinite;
         }
 
         /* Mode Toggle Button */
@@ -331,12 +345,12 @@ const html = `<!DOCTYPE html>
 <body>
     <button id="mode-toggle">Toggle Party Mode</button>
     <div class="pikachu-battle pikachu-left">
-        <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Left">
-        <div class="thunder-bolt thunder-right"></div>
+        <img class="pikachu-img" src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Left">
+        <div class="thunder-bolt"></div>
     </div>
     <div class="pikachu-battle pikachu-right">
-        <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Right">
-        <div class="thunder-bolt thunder-left"></div>
+        <img class="pikachu-img" src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu Right">
+        <div class="thunder-bolt"></div>
     </div>
     <div class="container">
         <h1>Welcome to BrawlStreetBets</h1>
