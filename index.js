@@ -5,6 +5,16 @@ const html = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BrawlStreetBets</title>
     <style>
+        /* Normal Mode Styles */
+        :root {
+            --bg-color: #181a20;
+            --text-color: #fff;
+            --accent-color: #ffb300;
+            --container-bg: #23272f;
+            --font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* Animations for Party Mode */
         @keyframes rainbow {
             0% { color: #ff0000; } 20% { color: #ff00ff; } 40% { color: #00ff00; }
             60% { color: #ffff00; } 80% { color: #00ffff; } 100% { color: #ff0000; }
@@ -24,73 +34,162 @@ const html = `<!DOCTYPE html>
             75% { background: #00ffff; }
             100% { background: #ff00ff; }
         }
+
+        /* Base Styles */
         body { 
-            font-family: 'Comic Sans MS', cursive; 
-            background: #000; 
-            color: #fff; 
             margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Normal Mode */
+        body:not(.party-mode) {
+            font-family: var(--font-family);
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        body:not(.party-mode) .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: var(--container-bg);
+            padding: 2.5rem 3.5rem;
+            border-radius: 18px;
+            box-shadow: 0 4px 32px #000a;
+            text-align: center;
+        }
+
+        body:not(.party-mode) h1 {
+            color: var(--accent-color);
+            font-size: 2.8rem;
+        }
+
+        body:not(.party-mode) h2 {
+            color: var(--accent-color);
+        }
+
+        body:not(.party-mode) p {
+            color: #b0b8c1;
+            font-size: 1.2rem;
+        }
+
+        /* Party Mode */
+        body.party-mode {
+            font-family: 'Comic Sans MS', cursive;
+            background: #000;
+            color: #fff;
             animation: backgroundFlash 10s infinite;
             cursor: crosshair;
         }
-        .container { 
-            max-width: 800px; 
-            margin: 40px auto; 
-            background: rgba(0,0,0,0.8); 
-            padding: 2.5rem; 
+
+        body.party-mode .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(0,0,0,0.8);
+            padding: 2.5rem;
             border: 5px solid #ff00ff;
             border-style: double;
             box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ff00, 0 0 60px #0000ff;
             text-align: center;
             animation: shake 0.5s infinite;
         }
-        h1 { 
-            color: #fff; 
-            font-size: 3.5rem; 
+
+        body.party-mode h1 {
+            color: #fff;
+            font-size: 3.5rem;
             text-shadow: 2px 2px #ff0000, -2px -2px #00ff00, 4px 4px #0000ff;
             animation: rainbow 3s infinite, shake 0.3s infinite;
         }
-        h2 { 
+
+        body.party-mode h2 {
             color: #fff;
             animation: rainbow 2s infinite;
             text-shadow: 2px 2px #000;
         }
-        p { 
-            color: #fff; 
+
+        body.party-mode p {
+            color: #fff;
             font-size: 1.4rem;
             animation: blink 0.5s infinite;
             text-shadow: 1px 1px #ff00ff;
         }
-        .smash-gallery { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 20px; 
-            justify-content: center; 
+
+        /* Common Gallery Styles */
+        .smash-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
             margin-top: 2em;
         }
-        .smash-gallery img { 
-            border-radius: 10px; 
-            width: 180px; 
-            height: 120px; 
-            object-fit: cover; 
-            border: 3px solid #ff00ff;
-            animation: shake 0.3s infinite;
+
+        .smash-gallery img {
+            border-radius: 10px;
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
             transition: all 0.3s;
         }
-        .smash-gallery img:hover {
+
+        /* Gallery Party Mode */
+        body.party-mode .smash-gallery img {
+            border: 3px solid #ff00ff;
+            animation: shake 0.3s infinite;
+        }
+
+        body.party-mode .smash-gallery img:hover {
             transform: scale(1.2) rotate(10deg);
             box-shadow: 0 0 30px #ff00ff;
         }
-        ::selection {
-            background: #ff00ff;
-            color: #00ff00;
+
+        /* Gallery Normal Mode */
+        body:not(.party-mode) .smash-gallery img {
+            border: 2px solid #444;
+            background: #111;
+            box-shadow: 0 2px 12px #0006;
         }
-        @media (max-width: 800px) { 
-            .container { padding: 1rem; } 
-            .smash-gallery img { width: 120px; height: 80px; } 
+
+        body:not(.party-mode) .smash-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px #000a;
+        }
+
+        /* Mode Toggle Button */
+        #mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        body:not(.party-mode) #mode-toggle {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            box-shadow: 0 2px 10px #0004;
+        }
+
+        body.party-mode #mode-toggle {
+            background: #ff00ff;
+            color: #fff;
+            border: 3px solid #00ff00;
+            animation: rainbow 3s infinite;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        @media (max-width: 800px) {
+            .container { padding: 1rem; }
+            .smash-gallery img { width: 120px; height: 80px; }
         }
     </style>
 </head>
 <body>
+    <button id="mode-toggle">Toggle Party Mode</button>
     <div class="container">
         <h1>Welcome to BrawlStreetBets</h1>
         <p><strong>BrawlStreetBets</strong> is your hub for all things Super Smash Bros.!<br>
@@ -105,6 +204,15 @@ const html = `<!DOCTYPE html>
             <img src="https://www.smashbros.com/assets_v2/img/fighter/pikachu/main.png" alt="Pikachu" />
         </div>
     </div>
+    <script>
+        const toggleButton = document.getElementById('mode-toggle');
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('party-mode');
+            toggleButton.textContent = document.body.classList.contains('party-mode') 
+                ? 'Switch to Normal Mode' 
+                : 'Toggle Party Mode';
+        });
+    </script>
 </body>
 </html>`;
 
